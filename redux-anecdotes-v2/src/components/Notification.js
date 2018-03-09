@@ -8,10 +8,17 @@ class Notification extends React.Component {
       padding: 10,
       borderWidth: 1
     }
+    const notif = () => {
+      return (
+        this.props.message !== '' ?
+          <div style={style}>
+            {this.props.message}
+          </div>
+          : ''
+      )
+    }
     return (
-      <div style={style}>
-        {this.props.message}
-      </div>
+      notif()
     )
   }
 }

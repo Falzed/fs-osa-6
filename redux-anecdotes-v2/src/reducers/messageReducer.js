@@ -1,4 +1,4 @@
-const initialState = 'Test message'
+const initialState = ''
 
 const messageReducer = (state = initialState, action) => {
   if (action.type === 'SET_MESSAGE') {
