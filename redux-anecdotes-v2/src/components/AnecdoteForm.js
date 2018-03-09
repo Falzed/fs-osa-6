@@ -1,24 +1,15 @@
 import React from 'react'
-import { actionFor } from '../reducers/anecdoteReducer'
-import { changeMessage, removeMessage } from '../reducers/messageReducer'
+import { connect } from 'react-redux'
+import { anecdoteCreation } from '../reducers/anecdoteReducer'
+import { changeMessage, removeMessage, notify } from '../reducers/messageReducer'
 
 class AnecdoteForm extends React.Component {
-  handleSubmit = (e) => {
-    console.log('handleSubmit')
+  handleSubmit = async (e) => {
     e.preventDefault()
     const content = e.target.anecdote.value
-    this.props.store.dispatch(
-      actionFor.anecdoteCreation(content)
-    )
-    this.props.store.dispatch(
-      changeMessage(`you submitted '${content}'`)
-    )
-    setTimeout(() => {
-      this.props.store.dispatch(
-        removeMessage()
-      )
-    }, 5000)
     e.target.anecdote.value = ''
+    this.props.anecdoteCreation(content)
+    this.props.notify(`you submitted '${content}'`, 5000)
   }
   render() {
     return (
@@ -32,5 +23,16 @@ class AnecdoteForm extends React.Component {
     )
   }
 }
+const mapDispatchToProps = {
+  anecdoteCreation,
+  changeMessage,
+  removeMessage,
+  notify
+}
 
-export default AnecdoteForm
+const ConnectedAnecdoteForm = connect(
+  null,
+  mapDispatchToProps
+)(AnecdoteForm)
+
+export default ConnectedAnecdoteForm
